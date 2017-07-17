@@ -41,7 +41,13 @@ namespace Mx
                     return instance;
                 }
             }
-
+            /// <summary>
+            /// 注册
+            /// </summary>
+            /// <param name="name"></param>
+            /// <param name="password"></param>
+            /// <param name="phoneNumber"></param>
+            /// <returns></returns>
             public string SignUp(string name, string password, string phoneNumber)
             {
 
@@ -59,7 +65,13 @@ namespace Mx
                 return jsonArray.ToString();
             }
 
-
+            /// <summary>
+            /// 登陆
+            /// </summary>
+            /// <param name="name"></param>
+            /// <param name="password"></param>
+            /// <param name="phoneNumber"></param>
+            /// <returns></returns>
             public string SignIn(string name, string password, string phoneNumber)
             {
                 JSONObject label = GetLabel(Enum.GetName(typeof(RequestType), RequestType.REQUEST_GET), Enum.GetName(typeof(GetDataType), GetDataType.GET_SIGN_IN));
@@ -76,6 +88,13 @@ namespace Mx
                 return jsonArray.ToString();
             }
 
+            /// <summary>
+            /// 下载文件
+            /// </summary>
+            /// <param name="state"></param>
+            /// <param name="name"></param>
+            /// <param name="number"></param>
+            /// <returns></returns>
             public string DownloadFile(string state, string name, string number)
             {
                 JSONObject label = GetLabel(Enum.GetName(typeof(RequestType), RequestType.REQUEST_GET), Enum.GetName(typeof(GetDataType), GetDataType.GET_DATA_PRODUCT));
@@ -90,6 +109,48 @@ namespace Mx
                 jsonArray.put(jsonObject);
 
                 return jsonArray.ToString();
+            }
+
+            /// <summary>
+            /// 获得服务器签名
+            /// </summary>
+            /// <param name="username"></param>
+            /// <param name="token"></param>
+            /// <returns></returns>
+            public string GetSign(string username,string token)
+            {
+                JSONObject label = GetLabel(Enum.GetName(typeof(RequestType), RequestType.REQUEST_GET), Enum.GetName(typeof(GetDataType), GetDataType.GET_DATA_ORBBEC_SIGN));
+
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("username", username);
+                jsonObject.put("token", token);
+
+                JSONArray jsonArray = new JSONArray();
+                jsonArray.put(label);
+                jsonArray.put(jsonObject);
+
+                return jsonArray.ToString();
+
+            }
+
+            /// <summary>
+            /// 获得VIP数据
+            /// </summary>
+            /// <param name="viptype"></param>
+            /// <returns></returns>
+            public string GetVipData(string viptype)
+            {
+                JSONObject label = GetLabel(Enum.GetName(typeof(RequestType), RequestType.REQUEST_GET), Enum.GetName(typeof(GetDataType), GetDataType.GET_DATA_ORBBEC_VIP));
+
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("viptype", viptype);
+                jsonObject.put("ty1", "asd");
+                JSONArray jsonArray = new JSONArray();
+                jsonArray.put(label);
+                jsonArray.put(jsonObject);
+
+                return jsonArray.ToString();
+
             }
 
             /// <summary>

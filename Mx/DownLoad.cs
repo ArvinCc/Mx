@@ -228,8 +228,8 @@ namespace Mx
 
             private void Close()
             {
-                isDone = true;
                 currentSize = fileSize;
+                isDone = true;
             }
 
             private void ContinueRequstData()

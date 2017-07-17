@@ -17,7 +17,11 @@ namespace Mx
             GET_DATA_PRODUCT,
             GET_DATA_ORDER,
             GET_DATA_ORDER_DETAILS,
-            GET_FILE_DOWNLOAD
+            GET_FILE_DOWNLOAD,
+            GET_DATA_ORBBEC_SIGN,
+            GET_DATA_ORBBEC_ORDER,
+            GET_DATA_ORBBEC_VIP
+
         }
 
         public enum PostDataType
