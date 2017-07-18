@@ -17,7 +17,6 @@ namespace Mx
             public string phoneNumber;
         }
 
-
         public class UserData : DataHandler
         {
             private static volatile UserData instance;
@@ -150,8 +149,29 @@ namespace Mx
                 jsonArray.put(jsonObject);
 
                 return jsonArray.ToString();
-
             }
+
+
+            /// <summary>
+            /// 获得订单信息
+            /// </summary>
+            /// <param name="username"></param>
+            /// <param name="viptype"></param>
+            /// <returns></returns>
+            public string GetOrderData(string username, string viptype) 
+            {
+                JSONObject label = GetLabel(Enum.GetName(typeof(RequestType), RequestType.REQUEST_GET), Enum.GetName(typeof(GetDataType), GetDataType.GET_DATA_ORBBEC_ORDER));
+
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("username",username);
+                jsonObject.put("viptype", viptype);
+                JSONArray jsonArray = new JSONArray();
+                jsonArray.put(label);
+                jsonArray.put(jsonObject);
+
+                return jsonArray.ToString();
+            }
+
 
             /// <summary>
             /// 封装信息包

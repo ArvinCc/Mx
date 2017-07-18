@@ -33,6 +33,7 @@ namespace Mx
 
             private string fileName;
 
+
             public DownLoad(Socket client, string path, string name)
             {
                 this.client = client;
@@ -135,14 +136,14 @@ namespace Mx
                     {
                         JSONArray ja = new JSONArray(msg.GetContent());
                         pkgId = ja.getJSONObject(1).getString("id");
-                        name = ja.getJSONObject(1).getString("name");
+                        //name = ja.getJSONObject(1).getString("name");
                         fileSize = Convert.ToInt32(ja.getJSONObject(1).getString("size"));
                         break;
                     }
                 }
 
-                fileName = path + "\\" + name;
-
+                SubFileHandler();
+                
                 if (File.Exists(fileName))
                 {
                     FileStream fs = new FileStream(fileName, FileMode.Append, FileAccess.Write);
@@ -224,6 +225,46 @@ namespace Mx
                         }
                     }
                 }
+            }
+
+            /// <summary>
+            /// 子文件处理
+            /// </summary>
+            private void SubFileHandler()
+            {
+                StringBuilder b = new StringBuilder();
+
+                if (name.IndexOf("\\") != -1)
+                {
+                    string[] o = name.Split(new char[] { '\\' });
+                    for (int i = 0; i < o.Length; i++)
+                    {
+                        if (i < o.Length - 1)
+                        {
+                            b.Append(o[i] + "\\");
+                        }
+                        else
+                        {
+                            b.Append(o[i]);
+                        }
+                    }
+                }
+
+                if (b.ToString().Trim().Equals(""))
+                {
+                    fileName = path + "\\" + name;
+                }
+                else
+                {
+                    fileName = path + "\\" +b.ToString();
+                }
+
+                string strPath = Path.GetDirectoryName(fileName);
+                if (!Directory.Exists(strPath))
+                {
+                    Directory.CreateDirectory(strPath);
+                }
+
             }
 
             private void Close()
