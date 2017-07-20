@@ -29,6 +29,7 @@ namespace Mx
                 this.client = client;
                 this.senContent = content;
                 thread = new Thread(new ThreadStart(Run));
+                thread.IsBackground = true;
             }
 
             public string GetContent()
@@ -116,7 +117,7 @@ namespace Mx
 
                                 Buffer.BlockCopy(buffer, 6 + bytes.Length, bytes1, 0, bytes1.Length);
 
-                                refContent = Encoding.UTF8.GetString(bytes1);
+                                refContent = Utils.Tool.StringHandler(Encoding.UTF8.GetString(bytes1)); 
                                 isDone = true;
                                 break;
                             }

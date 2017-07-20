@@ -34,12 +34,17 @@ namespace Mx
             private string fileName;
 
 
+            public string GetFileName() {
+
+                return fileName;
+            }
             public DownLoad(Socket client, string path, string name)
             {
                 this.client = client;
                 this.path = path;
                 this.name = name;
                 thread = new Thread(new ThreadStart(Run));
+                thread.IsBackground = true;
             }
 
             public string GetPath()
@@ -143,7 +148,7 @@ namespace Mx
                 }
 
                 SubFileHandler();
-                
+
                 if (File.Exists(fileName))
                 {
                     FileStream fs = new FileStream(fileName, FileMode.Append, FileAccess.Write);
@@ -227,44 +232,61 @@ namespace Mx
                 }
             }
 
+
+
+            private bool Abnormal() 
+            {
+                if (path.Trim().Equals(""))
+                {
+                    return false;
+                }
+                return false;
+            }
+
             /// <summary>
             /// 子文件处理
             /// </summary>
             private void SubFileHandler()
             {
-                StringBuilder b = new StringBuilder();
+                StringBuilder p = new StringBuilder();
+                StringBuilder n = new StringBuilder();
 
-                if (name.IndexOf("\\") != -1)
+                if (name.IndexOf("\\") != -1||name.IndexOf("/") != -1)
                 {
-                    string[] o = name.Split(new char[] { '\\' });
-                    for (int i = 0; i < o.Length; i++)
-                    {
-                        if (i < o.Length - 1)
-                        {
-                            b.Append(o[i] + "\\");
-                        }
-                        else
-                        {
-                            b.Append(o[i]);
-                        }
-                    }
+                    StringHandler(name,ref n);
                 }
 
-                if (b.ToString().Trim().Equals(""))
+                    StringHandler(path, ref p);
+
+                if (n.ToString().Trim().Equals(""))
                 {
-                    fileName = path + "\\" + name;
+                    fileName = p.ToString() + "/" + name;
                 }
                 else
                 {
-                    fileName = path + "\\" +b.ToString();
+                    fileName = p.ToString() + "/" + n.ToString();
                 }
-
                 string strPath = Path.GetDirectoryName(fileName);
                 if (!Directory.Exists(strPath))
                 {
                     Directory.CreateDirectory(strPath);
                 }
+            }
 
+            private void StringHandler(string st,ref StringBuilder b )
+            {
+                string[] o = st.Split(new char[] { '\\', '/' });
+                for (int i = 0; i < o.Length; i++)
+                {
+                    if (i < o.Length - 1)
+                    {
+                        b.Append(o[i] + "/");
+                    }
+                    else
+                    {
+                        b.Append(o[i]);
+                    }
+                }
             }
 
             private void Close()

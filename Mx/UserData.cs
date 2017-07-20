@@ -96,12 +96,55 @@ namespace Mx
             /// <returns></returns>
             public string DownloadFile(string state, string name, string number)
             {
-                JSONObject label = GetLabel(Enum.GetName(typeof(RequestType), RequestType.REQUEST_GET), Enum.GetName(typeof(GetDataType), GetDataType.GET_DATA_PRODUCT));
+                JSONObject label = GetLabel(Enum.GetName(typeof(RequestType), RequestType.REQUEST_GET), Enum.GetName(typeof(GetDataType), GetDataType.GET_FILE_DOWNLOAD));
 
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.put("state", state);
                 jsonObject.put("name", name);
                 jsonObject.put("number", number);
+
+                JSONArray jsonArray = new JSONArray();
+                jsonArray.put(label);
+                jsonArray.put(jsonObject);
+
+                return jsonArray.ToString();
+            }
+            /// <summary>
+            /// 获得vip时间
+            /// </summary>
+            /// <param name="state"></param>
+            /// <param name="name"></param>
+            /// <param name="number"></param>
+            /// <returns></returns>
+            public string GetUserVipTime(string username, string tp)
+            {
+                JSONObject label = GetLabel(Enum.GetName(typeof(RequestType), RequestType.REQUEST_GET), Enum.GetName(typeof(GetDataType), GetDataType.GET_DATA_ORBBEC_USER_VIP_TIME));
+
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("username", username);
+                jsonObject.put("state", tp);
+
+                JSONArray jsonArray = new JSONArray();
+                jsonArray.put(label);
+                jsonArray.put(jsonObject);
+
+                return jsonArray.ToString();
+            }
+
+            /// <summary>
+            /// 获得产品信息
+            /// </summary>
+            /// <param name="state"></param>
+            /// <param name="name"></param>
+            /// <param name="number"></param>
+            /// <returns></returns>
+            public string GetProducData(string producname)
+            {
+                JSONObject label = GetLabel(Enum.GetName(typeof(RequestType), RequestType.REQUEST_GET), Enum.GetName(typeof(GetDataType), GetDataType.GET_DATA_PRODUCT));
+
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("producname", producname);
+                jsonObject.put("state", "1");
 
                 JSONArray jsonArray = new JSONArray();
                 jsonArray.put(label);

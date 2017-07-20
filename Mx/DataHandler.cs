@@ -20,7 +20,8 @@ namespace Mx
             GET_FILE_DOWNLOAD,
             GET_DATA_ORBBEC_SIGN,
             GET_DATA_ORBBEC_ORDER,
-            GET_DATA_ORBBEC_VIP
+            GET_DATA_ORBBEC_VIP,
+            GET_DATA_ORBBEC_USER_VIP_TIME
 
         }
 
