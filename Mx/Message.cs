@@ -98,28 +98,35 @@ namespace Mx
                 {
                     while (true)
                     {
-                        client.Receive(buffer);
+                        client.Receive(buffer, buffer.Length, 0);
                         if (buffer[0] != 1)
                         {
-                            byte[] id = new byte[6];
-                            Buffer.BlockCopy(buffer, 0, id, 0, id.Length);
-
-                            if (Encoding.UTF8.GetString(id).Equals(pkgId))
+                            try
                             {
+                                byte[] id = new byte[6];
+                                Buffer.BlockCopy(buffer, 0, id, 0, id.Length);
+   
+                                if (Encoding.UTF8.GetString(id).Equals(pkgId) )
+                                {
+                                    byte[] bytes = new byte[8];
+                                    Buffer.BlockCopy(buffer, 6, bytes, 0, bytes.Length);
+                                    int length = Convert.ToInt32(Encoding.UTF8.GetString(bytes));
+                                    byte[] tail = new byte[2];
+                                    Buffer.BlockCopy(buffer, id.Length + bytes.Length + length, tail, 0, tail.Length);
 
-                                byte[] bytes = new byte[8];
-
-                                Buffer.BlockCopy(buffer, 6, bytes, 0, bytes.Length);
-
-                                int length = Convert.ToInt32(Encoding.UTF8.GetString(bytes));
-
-                                byte[] bytes1 = new byte[length];
-
-                                Buffer.BlockCopy(buffer, 6 + bytes.Length, bytes1, 0, bytes1.Length);
-
-                                refContent = Utils.Tool.StringHandler(Encoding.UTF8.GetString(bytes1)); 
-                                isDone = true;
-                                break;
+                                    if(Encoding.UTF8.GetString(tail).Equals("mx"))
+                                    {
+                                        byte[] bytes1 = new byte[length];
+                                        Buffer.BlockCopy(buffer, 6 + bytes.Length, bytes1, 0, bytes1.Length);
+                                        refContent = Utils.Tool.StringHandler(Encoding.UTF8.GetString(bytes1));
+                                        isDone = true;
+                                        break;
+                                    }
+                                }
+                            }
+                            catch (Exception e)
+                            { 
+                               
                             }
                         }
                     }
