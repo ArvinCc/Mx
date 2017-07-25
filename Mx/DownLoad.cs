@@ -177,7 +177,7 @@ namespace Mx
             {
                 byte[] buffer = new byte[1024 * 1024];
 
-                while (true)
+                while (!isDone)
                 {
                     int i = client.Receive(buffer, buffer.Length, 0);
 
@@ -206,7 +206,6 @@ namespace Mx
                                     fs.Write(data, 0, data.Length);
                                     fs.Flush();
                                     fs.Close();
-
                                     currentSize += data.Length;
                                 }
                                 else
@@ -223,20 +222,15 @@ namespace Mx
                             if (currentSize >= fileSize)
                             {
                                 Close();
-                                break;
                             }
                             else
                             {
                                 ContinueRequstData();
                             }
                         }
-
                     }
-
                 }
             }
-
-
 
 
             private void Abnormal()

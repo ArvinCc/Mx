@@ -42,6 +42,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ByteBuffer.cs" />
     <Compile Include="CharAtExtention.cs" />
     <Compile Include="DataHandler.cs" />
     <Compile Include="DownLoad.cs" />
