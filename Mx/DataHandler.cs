@@ -10,6 +10,7 @@ namespace Mx
     {
         public enum GetDataType
         {
+            GET_HEART_BEAT,
             GET_SIGN_IN,
             GET_SIGN_UP,
             GET_DATA_THEME,

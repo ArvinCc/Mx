@@ -36,7 +36,6 @@ namespace Mx
 
             private System.Timers.Timer timer;
 
-            private string fileMD5;
 
             public DownLoad(Socket client, string path, string name)
             {
@@ -119,8 +118,6 @@ namespace Mx
             {
 
                 Message msg = new Message(client, Encoding.UTF8.GetBytes(UserData.Instance.DownloadFile("on", name, "0")));
-
-                msg.Start();
 
                 while (true)
                 {
