@@ -42,6 +42,7 @@
     <Compile Include="DataHandler.cs" />
     <Compile Include="DownLoad.cs" />
     <Compile Include="EventTask.cs" />
+    <Compile Include="IState.cs" />
     <Compile Include="JSONArray.cs" />
     <Compile Include="JSONException.cs" />
     <Compile Include="JSONObject.cs" />
@@ -52,6 +53,7 @@
     <Compile Include="MessageManager.cs" />
     <Compile Include="NetManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StateMachine.cs" />
     <Compile Include="UserData.cs" />
     <Compile Include="Tool.cs" />
   </ItemGroup>
